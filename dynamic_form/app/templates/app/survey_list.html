@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+{% extends "app/base.html" %}
+
+{% block head %}
+    <title>Home</title>
+{% endblock %}
+
+{% block body %}
+    <div class="centerstage loader">
+
+        {% for survey in survey_list %}
+        <div class="post">
+            <h1><a href="{% url 'app:survey_detail' survey_id=survey.pk %}">{{survey.form_title}}</a></h1>
+            <p>{{ survey.description }}</p>
+        </div>
+        <hr>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+    {% extends "app/base.html" %}
+    {% block head %}
+<title>{{survey.title}}</title>
+    {% endblock %}
+
+
+    {% block body %}
+        <h1>{{survey.form_title}}</h1>
+            <p class="postcontent">{{ survey.description }}</p>
+        <a href="{% url 'app:survey_respond' survey.pk %}">Respond To Survey</a>
+        <hr>
+        <h2>Responses</h2>
+        {% for surveyresponse in object.surveyresponse_set.all %}
+        <ul>
+            {% for key, value in surveyresponse.response.items %}
+            <li><strong>{{key}}: </strong> {{value}}</li>
+            {% endfor %}
+        </ul>
+        <hr>
+        {% endfor %}
+    {% endblock %}

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+    {% load static %}
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <!--BOOTSTRAP-->
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+        <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <!--MEDIUM EDITOR-->
+        <script src="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/js/medium-editor.min.js"></script>
+        <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/medium-editor@latest/dist/css/medium-editor.min.css" type="text/css" media="screen" charset="utf-8">
+    <!--CUSTOM CSS-->
+<!--        <link rel="stylesheet" href='{% static "css/blog.css"%}'>-->
+    <!--FONTS-->
+        <link href="https://fonts.googleapis.com/css?family=Big+Shoulders+Text|Montserrat&display=swap" rel="stylesheet">
+<!--        <script type="text/javascript" src="{% static 'js/blog.js'%}"></script>-->
+        {% block head %}
+        {% endblock %}
+
+    </head>
+    <body>
+        <div class="container" id="main">
+            <!--NAV BAR-->
+            <nav class="navbar navbar-expand-lg navbar-light bg-primary techfont custom-navbar">
+                <a class="navbar-brand bigbrand" href="{% url 'app:survey_list' %}">Survey Generator</a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav">
+
+                        <li class="nav-item active">
+                            <a class="nav-link" href="https://www.github.com/jayanwana">GitHub</a>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav my-2 my-lg-0">
+                        {% if user.is_authenticated %}
+                        <!--ONLY AUTH USER CAN VIEW-->
+                            <li class="nav-item active">
+                                <a class="nav-link" href="{% url 'app:survey_create' %}">New Survey</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+                            </li>
+                            <li class="nav-item active">
+                                <a class="nav-link">Welcome: {{ user.username }}</a>
+                            </li>
+                        {% else %}
+                        <!--ELSE LOGIN-->
+                            <li class="nav-item" style="float: right;">
+                                <a class="nav-link" href="{% url 'login' %}">Login<span class="fa fa-user" aria-hidden="true"></span></a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </nav>
+            <!--CONTENT-->
+            <div class="content container">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="blog_posts">
+                            {% block body %}
+                            {% endblock %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+</html>
